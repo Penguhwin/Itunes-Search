@@ -26,5 +26,4 @@ Hilt Dependency Injection
 *Coroutines
 
 
-Itunes Search API:
-src<https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html>
+Itunes Search API: https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html

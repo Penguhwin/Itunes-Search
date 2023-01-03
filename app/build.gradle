@@ -1,0 +1,101 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.google.dagger.hilt.android'
+    id "kotlin-kapt"
+}
+
+android {
+    namespace 'com.penguin.musicinfo'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.penguin.musicinfo"
+        minSdk 21
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.1.1'
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+    implementation 'androidx.activity:activity-compose:1.6.1'
+    implementation 'androidx.compose.material:material:1.3.1'
+
+    implementation 'com.google.android.material:material:1.7.0'
+
+    // Compose
+    implementation "androidx.compose.ui:ui:$compose_ui_version"
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+
+    // Navigation
+    implementation "androidx.navigation:navigation-compose:2.5.3"
+    implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
+
+    //REST - APIService
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$coroutines_adapter_version"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofit_version"
+
+    // Moshi for json serialization / deserialization
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
+    implementation "com.squareup.moshi:moshi-adapters:$moshi_version"
+
+    // HILT for DI
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    implementation "com.google.dagger:dagger-android-support:$hilt_version"
+
+    implementation "com.google.dagger:hilt-android-testing:$hilt_version"
+    implementation "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    kapt "androidx.hilt:hilt-compiler:1.0.0"
+
+    // Paging Support
+    implementation("androidx.paging:paging-runtime:$paging_version")
+    implementation("androidx.paging:paging-compose:$paging_compose_version")
+
+    // Image Loading
+    implementation("io.coil-kt:coil-compose:$coil_compose")
+
+    // Splashscreen API
+    implementation "androidx.core:core-splashscreen:$splashscreen_version"
+}

@@ -21,6 +21,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.perf.ktx.performance
 import com.penguin.musicinfo.network.data.model.AlbumDataModel
 import com.penguin.musicinfo.network.data.model.SongDataModel
 import com.penguin.musicinfo.ui.components.AppTopBar
@@ -71,6 +73,7 @@ fun DetailsScreen(
                     .fillMaxWidth(),
                 verticalArrangement = Arrangement.Bottom
             ) {
+                val imageLoadingTrace = Firebase.performance.newTrace("DetailScreenAlbumImage")
                 AsyncImage(
                     modifier = Modifier
                         .align(CenterHorizontally)
@@ -83,6 +86,17 @@ fun DetailsScreen(
                         .build(),
                     contentScale = ContentScale.Crop,
                     contentDescription = null,
+                    onLoading = {
+                        imageLoadingTrace.start()
+                    },
+                    onSuccess = {
+                        imageLoadingTrace.putAttribute("dataSource", it.result.dataSource.name)
+                        imageLoadingTrace.stop()
+                    },
+                    onError = {
+                        imageLoadingTrace.putAttribute("error", it.result.toString())
+                        imageLoadingTrace.stop()
+                    }
                 )
                 TextTitle(modifier = Modifier.padding(top = 10.dp), text = albumInfo.albumName)
 

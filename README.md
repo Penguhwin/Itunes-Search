@@ -36,8 +36,8 @@ Start-up Tests
 
 ![](https://github.com/Penguhwin/Itunes-Search/blob/main/Media_230111_121145.gif)
 
-**StartupBenchmark_hotStartup
-**timeToInitialDisplayMs   min 44.7,   median 58.8,   max 73.9
+**StartupBenchmark_hotStartup**
+timeToInitialDisplayMs   min 44.7,   median 58.8,   max 73.9
 
 **StartupBenchmark_coldStartup**
 timeToInitialDisplayMs   min 2,356.5,   median 2,372.9,   max 2,391.0

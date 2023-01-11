@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'com.google.dagger.hilt.android'
     id "kotlin-kapt"
+    id 'com.google.firebase.firebase-perf'
 }
 
 android {
@@ -20,12 +21,26 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+        testOptions {
+            unitTests {
+                includeAndroidResources = true
+            }
+        }
+    }
+
+    sourceSets {
+        main.java.srcDirs += "src/main/java"
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        benchmark {
+            signingConfig signingConfigs.debug
+            matchingFallbacks = ['release']
+            debuggable false
         }
     }
     compileOptions {
@@ -50,6 +65,20 @@ android {
 }
 
 dependencies {
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:31.1.1')
+
+    // Add the dependency for the Performance Monitoring library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-perf-ktx'
+    testImplementation 'androidx.test:runner:1.5.2'
+    testImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // Testing
+    testImplementation "junit:junit:4.13.2"
+    testImplementation "org.robolectric:robolectric:4.9.2"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
+    testImplementation 'androidx.test.ext:junit:1.1.5'
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
@@ -61,12 +90,17 @@ dependencies {
     // Compose
     implementation "androidx.compose.ui:ui:$compose_ui_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
+    implementation 'com.google.firebase:firebase-common-ktx:20.2.0'
+    implementation 'androidx.test.ext:junit-ktx:1.1.4'
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+    debugImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
 
     // Navigation
     implementation "androidx.navigation:navigation-compose:2.5.3"
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
+    testImplementation "androidx.navigation:navigation-testing:2.5.3"
 
     //REST - APIService
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
@@ -98,4 +132,10 @@ dependencies {
 
     // Splashscreen API
     implementation "androidx.core:core-splashscreen:$splashscreen_version"
+
+    implementation "androidx.profileinstaller:profileinstaller:$profileinstaller_version"
+
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
 }
+
+apply plugin: 'com.google.gms.google-services'

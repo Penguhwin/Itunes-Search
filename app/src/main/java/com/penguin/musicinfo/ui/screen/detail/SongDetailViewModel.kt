@@ -30,7 +30,7 @@ class SongDetailViewModel @Inject constructor(
 
     var collectionId = mutableStateOf(initialArtistId)
 
-    fun getAlbumDetails() {
+    private fun getAlbumDetails() {
         viewModelScope.launch {
             val response = repo.getSongsInTheAlbum(
                 collectionId = collectionId.value,
@@ -46,6 +46,10 @@ class SongDetailViewModel @Inject constructor(
                 entity = ENTITY.SONG
             )
         }
+    }
+
+    init {
+        getAlbumDetails()
     }
 
     companion object {

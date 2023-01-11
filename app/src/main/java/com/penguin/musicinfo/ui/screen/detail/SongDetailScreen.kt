@@ -2,10 +2,8 @@ package com.penguin.musicinfo.ui.screen.detail
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -14,6 +12,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -22,6 +21,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.penguin.musicinfo.network.data.model.AlbumDataModel
+import com.penguin.musicinfo.network.data.model.SongDataModel
 import com.penguin.musicinfo.ui.components.AppTopBar
 import com.penguin.musicinfo.ui.components.SongResultItem
 import com.penguin.musicinfo.ui.components.TextTitle
@@ -32,22 +33,18 @@ fun SongDetailScreen(
     songDetailViewModel: SongDetailViewModel = hiltViewModel()
 ) {
 
-    LaunchedEffect(key1 = songDetailViewModel.collectionId) {
-        songDetailViewModel.getAlbumDetails()
-    }
+    val tracks = songDetailViewModel.songsInAlbumState.value
+    val albumInfo = songDetailViewModel.artistInfoState.value
 
-    DetailsScreen(navController, songDetailViewModel)
+    DetailsScreen(navController, tracks, albumInfo)
 }
 
 @Composable
 fun DetailsScreen(
     navController: NavHostController,
-    songDetailViewModel: SongDetailViewModel = hiltViewModel()
+    songs: List<SongDataModel>,
+    albumInfo: AlbumDataModel
 ) {
-
-    val tracks = songDetailViewModel.songsInAlbumState.value
-    val albumInfo = songDetailViewModel.artistInfoState.value
-
     val listScrollState = rememberLazyListState()
     val contentHeight = 200.dp
 
@@ -60,7 +57,8 @@ fun DetailsScreen(
             top = 50.dp,
             start = 20.dp,
             end = 10.dp
-        ),
+        ).testTag("detailsScreenColumn"),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
         contentPadding = PaddingValues(
             top = 80.dp,
             bottom = 100.dp
@@ -98,10 +96,8 @@ fun DetailsScreen(
             }
         }
 
-        items(tracks) { track ->
-            SongResultItem(track) {
-
-            }
+        items(count = songs.size) {  index ->
+            SongResultItem(songs[index])
         }
     }
 

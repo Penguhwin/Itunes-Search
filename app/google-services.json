@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "841354662957",
+    "project_id": "artistinfo-6d138",
+    "storage_bucket": "artistinfo-6d138.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:841354662957:android:e8c5e2a705abc704a894a4",
+        "android_client_info": {
+          "package_name": "com.penguin.musicinfo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "841354662957-g6iidhapoor7j0ja20aem0qtlvphles7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2eYmGZ7SlqiQLtpbaCkVvNwhXlURnH9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "841354662957-g6iidhapoor7j0ja20aem0qtlvphles7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

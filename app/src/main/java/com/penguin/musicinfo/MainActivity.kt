@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import com.google.firebase.FirebaseApp
 import com.penguin.musicinfo.ui.ArtistInfoMainApp
 import com.penguin.musicinfo.ui.theme.ArtistInfoTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,6 +18,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        FirebaseApp.initializeApp(this)
 
         installSplashScreen().apply {
             setKeepOnScreenCondition {

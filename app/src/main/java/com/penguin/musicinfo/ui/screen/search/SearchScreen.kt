@@ -20,8 +20,11 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -69,7 +72,8 @@ fun SearchScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(ContentPaddingMedium),
+                .padding(ContentPaddingMedium)
+                .testTag("searchScreenLazyColumn"),
             horizontalAlignment = Alignment.Start,
             contentPadding = paddingValues,
             state = listState
@@ -188,7 +192,8 @@ private fun SearchAppBar(
                     .height(50.dp)
                     .onFocusChanged {
                         focused = it.isFocused
-                    },
+                    }
+                    .semantics { testTagsAsResourceId = true },
                 text = query,
                 onValueChange = { value ->
                     query = value
@@ -223,7 +228,8 @@ fun SearchBar(
 
         ButtonIcon(
             modifier = Modifier
-                .size(24.dp),
+                .size(24.dp)
+                .testTag("searchBarButton"),
             tint = Color.Black,
             unselectedIcon = R.drawable.ic_baseline_search_24,
             onClick = onSearch
@@ -233,7 +239,8 @@ fun SearchBar(
             value = text,
             onValueChange = { newVal -> onValueChange(newVal) },
             modifier = Modifier
-                .weight(1f),
+                .weight(1f)
+                .testTag("searchBarTextField"),
             textStyle = TextStyle(
                 color = Color.DarkGray,
                 fontSize = 18.sp,

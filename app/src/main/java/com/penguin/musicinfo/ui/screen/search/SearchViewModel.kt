@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
+import com.google.firebase.perf.metrics.AddTrace
 import com.penguin.musicinfo.network.api.ENTITY
 import com.penguin.musicinfo.network.api.MEDIA_TYPE
 import com.penguin.musicinfo.network.data.model.SongDataModel
@@ -27,6 +28,7 @@ class SearchViewModel @Inject constructor(
     private var _artistSearch = mutableStateOf<Flow<PagingData<SongDataModel>>>(emptyFlow())
     val artistsSearchState: State<Flow<PagingData<SongDataModel>>> = _artistSearch
 
+    @AddTrace(name = "onSearchAction", enabled = true)
     fun onSearchAction() {
         if (searchTerm.value.isNotEmpty()) {
             isSearchingState.value = true

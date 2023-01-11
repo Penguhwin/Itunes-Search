@@ -56,3 +56,5 @@ frameOverrunMs   P50  -4.7,   P90   7.9,   P95  19.1,   P99  51.5
 frameDurationCpuMs   P50  10.2,   P90  19.7,   P95  32.0,   P99  33.2
 frameOverrunMs   P50  -2.6,   P90  16.3,   P95  18.7,   P99  40.7
 
+# Image Loading Performances (Currently set up for album picture)
+![](https://github.com/Penguhwin/Itunes-Search/blob/main/Screenshot%202023-01-11%20at%2012.49.45%20PM.png)
